@@ -40,11 +40,16 @@
 }
 
 .enter-form .sub-text {
+  font-size: 2rem;
   color: rgb(134, 134, 134);
 }
 
 .enter-form .btn {
   margin-bottom: 0;
+}
+
+.enter-form .btn:hover {
+  transform: scale(0.95);
 }
 
 .enter-form .btn .btn-text {

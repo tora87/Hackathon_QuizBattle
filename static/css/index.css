@@ -3,13 +3,14 @@
   text-align: center;
   font-weight: bold;
   font-size: 5rem;
+  color: var(--dark);
 }
 
 .enter-form {
   margin: 0 auto;
   padding: 3rem;
   width: 50%;
-  background: #bae8e8;
+  background: var(--blue);
   border-radius: 15px;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.514);
 }
@@ -26,7 +27,7 @@
   padding: 1rem ;
   font-size: 3rem;
   border: none;
-  border: 1px solid #000;
+  border: 1px solid var(--dark);
   border-radius: 5px;
   margin-bottom: 0.5rem;
 }
@@ -59,4 +60,3 @@
 .btn-wrapper {
   text-align: center;
 }
-

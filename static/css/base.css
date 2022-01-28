@@ -13,11 +13,18 @@
 
 html {
   font-size: 10px;
+  --yellow:#ffd803;
+  --dark-yellow: #dbbb02;
+  --blue:#bae8e8;
+  --light-blue: #f5ffff;
+  --dark: #272343;
+  --light-dark: #2d334a;
+  --white: #fffffe;
 }
 
 body {
   font-size: 16px;
-  background: #f5ffff;
+  background: var(--light-blue);
   font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
@@ -51,12 +58,11 @@ img {
   font-size: 4rem;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   color: #272343;
-  background: #ffd803;
+  background: var(--yellow);
   border: none;
-  border-bottom: 3px solid #dbbb02;
+  border-bottom: 3px solid var(--dark-yellow);
   border-radius: 8px;
   cursor: pointer;
-  /* box-shadow: 0 2px 5px 0px rgba(0,0,0,.5); */
   transition: .3s;
 }
 

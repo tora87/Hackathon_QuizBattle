@@ -1,0 +1,66 @@
+@charset 'utf-8';
+
+@font-face {
+  font-family: "myFont";
+  src: url(/static/font/Chalk-JP.otf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 16px;
+  background: #f5ffff;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+.contents-wrapper {
+  width: calc(100% - 100px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  display: block;
+}
+
+.flex-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  margin: 3rem auto;
+  padding: 0.25em 1.5em;
+  display: inline-block;
+  font-size: 4rem;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: #272343;
+  background: #ffd803;
+  border: none;
+  border-bottom: 5px solid #dbbb02;
+  border-radius: 8px;
+  cursor: pointer;
+  /* box-shadow: 0 2px 5px 0px rgba(0,0,0,.5); */
+  transition: .3s;
+}
+
+.material-icons-outlined {
+  font-family: "Material Icons";
+  vertical-align: middle;
+}

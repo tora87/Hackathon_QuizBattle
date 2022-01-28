@@ -1,0 +1,57 @@
+.app-title {
+  margin: 4rem auto;
+  text-align: center;
+  font-weight: bold;
+  font-size: 5rem;
+}
+
+.enter-form {
+  margin: 0 auto;
+  padding: 3rem;
+  width: 50%;
+  background: #bae8e8;
+  border-radius: 15px;
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.514);
+}
+
+.enter-form label {
+  color: #272343;
+  font-size: 3rem;
+  margin-bottom: .25em;
+}
+
+.enter-form input[type=text] {
+  width: 100%;
+  outline: none;
+  padding: 1rem ;
+  font-size: 3rem;
+  border: none;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.enter-form .form-item {
+  margin-bottom: 3rem;
+}
+
+.enter-form label {
+  display: block;
+}
+
+.enter-form .sub-text {
+  color: rgb(134, 134, 134);
+}
+
+.enter-form .btn {
+  margin-bottom: 0;
+}
+
+.enter-form .btn .btn-text {
+  margin-right: 20px;
+}
+
+.btn-wrapper {
+  text-align: center;
+}
+

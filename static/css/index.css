@@ -13,6 +13,7 @@
   background: var(--blue);
   border-radius: 15px;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.514);
+  position: relative;
 }
 
 .enter-form label {
@@ -59,4 +60,24 @@
 
 .btn-wrapper {
   text-align: center;
+}
+
+.toCreaterLink {
+  display: inline-block;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  color: var(--light-dark);
+  font-size: 2rem;
+  transition: .4s;
+}
+
+.toCreaterLink::after {
+  content: '\03e';
+  display: inline-block;
+  transition: .4s;
+}
+
+.toCreaterLink:hover::after {
+  transform: translateX(10px);
 }

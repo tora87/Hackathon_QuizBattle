@@ -1,0 +1,47 @@
+/* 黒板風　2 */
+.kokuban-s2 {
+    position: relative;
+    margin: 2em auto;
+    padding: 1em;
+    width: 90%; /* ボックス幅 */
+    height: 50vh;
+    background: #006633; /* ボックス背景色 */
+    color: #fff; /* 文章色 */
+    border: 8px solid #b2771f; /* 枠線 */
+    border-radius: 3px; /* 角の丸み */
+    box-shadow: 0 0 5px #333, 0 0 5px #555 inset;
+    }
+    .kokuban-s2::before,
+    .kokuban-s2::after {
+    position: absolute;
+    content: ”;
+    bottom: 0;
+    }
+    .kokuban-s2::before {
+    width: 20px;
+    right: 10px;
+    border: solid 3px #ffff00; /*チョーク（黄色）*/
+    border-radius: 3px 2px 0 2px;
+    }
+    .kokuban-s2::after {
+    width: 15px;
+    right: 45px;
+    border: solid 3px #fff; /*チョーク（白） */
+    border-radius: 8px 5px 2px 5px;
+    }
+
+.question-text {
+    font-size: 30px;
+}
+
+
+.btn-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.answer-button {
+    width: 48%; 
+    height: 10vh;
+}

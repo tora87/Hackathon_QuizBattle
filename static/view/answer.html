@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/answer.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div class="question kokuban-s2">
+        <h1 class="question-number">問題:1</h1>
+        <p class="question-text">音声などのアナログデータをディジタル化するために用いられるPCMで，音の信号を一定の周期でアナログ値のまま切り出す処理はどれか。</p>
+    </div>
+    <div class="answers">
+        <h1>回答案</h1>
+        <div class="btn-wrapper">
+            <button class="answer-button" id="incor1" value="1">暗号化</button>
+            <button class="answer-button" id="cor" value="2">標本化</button>
+            <button class="answer-button" id="incor2" value="3">符合化</button>
+            <button class="answer-button" id="incor3" value="4">量子化</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var correct = new Audio("/static/sound/correct.mp3");
+        var incorrect = new Audio("/static/sound/incorrect.mp3");
+
+        document.getElementById(`cor`).onclick = function() {
+            correct.currentTime = 0;  
+            correct.play(); 
+        } 
+        
+        for(let i=1;i < 4;i++){
+            document.getElementById(`incor${i}`).onclick = function() {
+                incorrect.currentTime = 0;  
+                incorrect.play(); 
+            } 
+        }
+    </script>
+</body>
+</html>

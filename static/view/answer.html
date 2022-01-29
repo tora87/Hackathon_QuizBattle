@@ -9,12 +9,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
-
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/answer.js"></script>
 
     <title>Document</title>
 </head>
 <body>
+    <div id="log">aaaaa</div>
     <div class="question kokuban-s2 ">
         <h1 class="question-number">もんだい1</h1>
         <p class="question-text">音声などのアナログデータをディジタル化するために用いられるPCMで，音の信号を一定の周期でアナログ値のまま切り出す処理はどれか。</p>
@@ -24,9 +26,9 @@
             <h1>次の四つから押してね</h1>
             <div class="btn-wrapper">
                 <button class="btn" id="incor1" value="1">暗号化</button>
-                <button class="btn" id="cor" value="2">標本化</button>
-                <button class="btn" id="incor2" value="3">符合化</button>
-                <button class="btn" id="incor3" value="4">量子化</button>
+                <button class="btn" id="incor2" value="2">標本化</button>
+                <button class="btn" id="incor3" value="3">符合化</button>
+                <button class="btn" id="incor4" value="4">量子化</button>
             </div>
     </div>
     </div>
@@ -68,7 +70,7 @@
         //     document.getElementById('pie').style.backgroundImage = 'conic-gradient(#d5525f 0% 60%, #d9d9d9 60% 100%)';
         // }
 
-        document.getElementById(`cor`).onclick = function() {
+        document.getElementById(`incor3`).onclick = function() {
             console.log('cor-Button pushed')
             correct.currentTime = 0;  
             correct.play(); 

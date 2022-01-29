@@ -16,85 +16,106 @@
 </head>
 <body>
     <div class="question kokuban-s2 ">
-        <h1 class="question-number">もんだい1</h1>
-        <p class="question-text">音声などのアナログデータをディジタル化するために用いられるPCMで，音の信号を一定の周期でアナログ値のまま切り出す処理はどれか。</p>
+        <h1 class="question-number" id="question-number">もんだい</h1>
+        <p class="question-text" id="question-text"></p>
     </div>
     <div class="answers">
         <div class="contents-wrapper">
             <h1>次の四つから押してね</h1>
             <div class="btn-wrapper">
-                <button class="btn" id="incor1" value="1">暗号化</button>
-                <button class="btn" id="cor" value="2">標本化</button>
-                <button class="btn" id="incor2" value="3">符合化</button>
-                <button class="btn" id="incor3" value="4">量子化</button>
+                <button class="btn" id="ch0" value="1"></button>
+                <button class="btn" id="ch1" value="2"></button>
+                <button class="btn" id="ch2" value="3"></button>
+                <button class="btn" id="ch3" value="4"></button>
             </div>
-    </div>
+        </div>
     </div>
 
     <div class="wait-popup" id="js-wait-popup">
         <div class="black-background" id="js-black-bg"></div>
         <div class="wait-popup-inner" id=js-wait-text></div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script type="text/javascript">
-        var correct = new Audio("/sound/correct.mp3");
-        var incorrect = new Audio("/sound/incorrect.mp3");
-        var waitpopup = document.getElementById('js-wait-popup');
-        const popupMassage = document.getElementById('js-wait-text');
+        // ---htmlの要素を変数に代入---------------------------------
+        var correct = new Audio("/sound/correct.mp3");                      // 正解音
+        var incorrect = new Audio("/sound/incorrect.mp3");                  // 不正解音
+        var waitpopup = document.getElementById('js-wait-popup');           // ポップアップ白枠
+        const popupMassage = document.getElementById('js-wait-text');       // ポップアップテキスト
+        const choices = document.querySelectorAll('.btn')                   // 回答ボタン配列
+        const questionNumber = document.getElementById('question-number')   // 問題番号
+        const questionText = document.getElementById('question-text')       // 問題文
 
-        const waittext = '<p class="wait-text" id="js-wait-text">みんなが答え終わるまで待ってね...</p>'
-                 + '<div class="sk-chase">'
-                 + '<div class="sk-chase-dot"></div>'
-                 + '<div class="sk-chase-dot"></div>'
-                 + '<div class="sk-chase-dot"></div>'
-                 + '<div class="sk-chase-dot"></div>'
-                 + '<div class="sk-chase-dot"></div>'
-                 + '<div class="sk-chase-dot"></div>'
-                 + '</div>';
-
-        let resulttext = '<div class="ul"><div class="name"><ul class="ranking"><li>たかはしはじめ 5秒</li><li>なかむらじろう 6秒</li><li>たなかさんこ 7秒</li></ul></div><div class="pie" id="pie"><span>60%</span></div></div>';
-
-        // const socket = io("http://example.com/");
-        
-        // let endTheAnswer = false;
-        // socket.on("endTheAnser", (msg) => {
-        // })
-
+        // ---ポップアップでテキストを表示する---------------------------------
         function showMassages(text) {
             popupMassage.innerHTML = text;
         }
 
-        // function changepie(){
-        //     document.getElementById('pie').style.backgroundImage = 'conic-gradient(#d5525f 0% 60%, #d9d9d9 60% 100%)';
-        // }
+        // ---問題番号,問題文の挿入---------------------------------
+        questionNumber.innerText += `1`;
+        questionText.innerText = `音声などのアナログデータをディジタル化するために用いられるPCMで，音の信号を一定の周期でアナログ値のまま切り出す処理はどれか。`;
 
-        document.getElementById(`cor`).onclick = function() {
-            console.log('cor-Button pushed')
-            correct.currentTime = 0;  
-            correct.play(); 
-            waitpopup.classList.toggle('is-show');
-            showMassages(waittext);
+        // ---選択肢の挿入---------------------------------
+        let choicesText = ['暗号化', '標本化', '符号化', '量子化'];
+
+        choices.forEach((el,idx) => {
+            el.innerText = choicesText[idx]
+            el.addEventListener('click',() => {
+                waitpopup.classList.toggle('is-show');
+                showMassages(waitText);
+                showresult();
+            })
+        })
+
+        // ---待機画面の表示---------------------------------
+
+        const waitText = `
+        <div class="popup-container">
+            <p class="wait-text" id="js-wait-text">みんなが答え終わるまで待ってね...</p>'
+            <div class="sk-wrapper">
+                <div class="sk-chase">
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                </div>
+            </div>
+        </div>
+         `;
+
+        // ---リザルト画面の表示---------------------------------
+        let resulttext = `
+        <div class="flex-wrapper">
+            <div class="ul">
+                <div class="name">
+                    <ul class="ranking">
+                        <li>たかはしはじめ 5秒</li>
+                        <li>なかむらじろう 6秒</li>
+                        <li>たなかさんこ 7秒</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cor-rate">
+                    <p>正答率</p>
+                    <div class="pie" id="pie"><span>60%</span></div>
+            </div>
+        </div>
+        <div class="user-score" id="user-score">
+            <p>あなた</p>
+        </div>
+        `;
+
+        function showresult(){
             setTimeout(() => {
                 showMassages(resulttext);
                 console.log(document.getElementById('pie'));
-                document.getElementById('pie').style.backgroundImage = 'conic-gradient(#d5525f 0% 60%, #d9d9d9 60% 100%)';
-            },5000);
-        } 
-        
-        for(let i=1;i < 4;i++){
-            document.getElementById(`incor${i}`).onclick = function() {
-                console.log('incor-Button pushed')
-                incorrect.currentTime = 0;  
-                incorrect.play(); 
-                waitpopup.classList.toggle('is-show');
-                showMassages(waittext);
-                setTimeout(() => {
-                    showMassages(resulttext);
-                    console.log(document.getElementById('pie'));
-                    document.getElementById('pie').style.backgroundImage = 'conic-gradient(#d5525f 0% 60%, #d9d9d9 60% 100%)';
-                },3000);
-            } 
+                document.getElementById('pie').style.backgroundImage = `conic-gradient(#d5525f 0% 60%, #d9d9d9 60% 100%)`;
+                document.getElementById('user-score').innerHTML += `<p>14位 たちばなかずひこ 14秒</p>`;
+            },1000);
         }
+
+        
     </script>
 </body>
 </html>

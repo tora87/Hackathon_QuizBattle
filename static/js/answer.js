@@ -19,6 +19,21 @@ window.addEventListener('DOMContentLoaded', (event) => {
       });
    }
 
+   socket.on("server_to_send_question",function(question){
+      document.getElementById("question-text").innerText = question.question
+      document.getElementById("uestion-number").innerText = question.question
+      document.getElementById("ch0").innerText = question.answer[0];
+      document.getElementById("ch1").innerText = question.answer[1];
+      document.getElementById("ch2").innerText = question.answer[2];
+      document.getElementById("ch3").innerText = question.answer[3]; 
+   });
+
+
+   socket.on("server_to_send_correct",function(question){
+      //TODO 正解時の処理
+
+   })
+
 
    document.getElementById("ch0").addEventListener("click", () =>sendans(1));
    document.getElementById("ch1").addEventListener("click", () =>sendans(2));

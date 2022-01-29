@@ -1,0 +1,96 @@
+.create-question-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-question-container .contents-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.q-wrapper {
+  width: calc(100% / 2 - 50px);
+  padding: 30px
+}
+
+.q-wrapper.ask .title {
+  font-size: 3rem;
+}
+
+.create-form .form-item {
+  margin-bottom: 2rem;
+}
+
+.create-form label {
+  display: block;
+  font-size: 3rem;
+  overflow: hidden;
+}
+
+.create-form textarea {
+  width: 100%;
+  height: 150px;
+  padding: 1rem;
+  font-size: 3rem;
+  color: var(--light-dark);
+  resize: none;
+}
+
+.create-form input[type=text] {
+  width: 100%;
+  outline: none;
+  padding: 1rem ;
+  font-size: 3rem;
+  border: none;
+  border: 1px solid var(--dark);
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.btn-wrapper {
+  text-align: center;
+}
+
+.btn.dark {
+  background: var(--dark);
+  color: var(--white);
+  border-bottom: 3px solid #1e1b33;
+}
+
+.list-item-wrapper {
+  background: var(--white);
+  margin-bottom: 20px;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,.4);
+}
+
+.list-item-wrapper .left > span {
+  display: inline-block;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.list-number {
+  font-size: 4rem;
+  margin-right: 20px;
+  color: var(--blue);
+  text-shadow: 2px 2px 2px rgba(0,0,0,.4);
+}
+
+.question-text {
+  font-size: 2rem;
+}
+
+.list-item-wrapper .btn {
+  margin: 0;
+  font-size: 2rem;
+}

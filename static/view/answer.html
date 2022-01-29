@@ -9,35 +9,90 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+
     <title>Document</title>
 </head>
 <body>
-    <div class="question kokuban-s2">
-        <h1 class="question-number">問題:1</h1>
+    <div class="question kokuban-s2 ">
+        <h1 class="question-number">もんだい1</h1>
         <p class="question-text">音声などのアナログデータをディジタル化するために用いられるPCMで，音の信号を一定の周期でアナログ値のまま切り出す処理はどれか。</p>
     </div>
     <div class="answers">
-        <h1>回答案</h1>
-        <div class="btn-wrapper">
-            <button class="answer-button" id="incor1" value="1">暗号化</button>
-            <button class="answer-button" id="cor" value="2">標本化</button>
-            <button class="answer-button" id="incor2" value="3">符合化</button>
-            <button class="answer-button" id="incor3" value="4">量子化</button>
-        </div>
+        <div class="contents-wrapper">
+            <h1>次の四つから押してね</h1>
+            <div class="btn-wrapper">
+                <button class="btn" id="incor1" value="1">暗号化</button>
+                <button class="btn" id="cor" value="2">標本化</button>
+                <button class="btn" id="incor2" value="3">符合化</button>
+                <button class="btn" id="incor3" value="4">量子化</button>
+            </div>
     </div>
+    </div>
+
+    <div class="wait-popup" id="js-wait-popup">
+        <div class="black-background" id="js-black-bg"></div>
+        <div class="wait-popup-inner" id=js-wait-text></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script type="text/javascript">
-        var correct = new Audio("/static/sound/correct.mp3");
-        var incorrect = new Audio("/static/sound/incorrect.mp3");
+        var correct = new Audio("/sound/correct.mp3");
+        var incorrect = new Audio("/sound/incorrect.mp3");
+        var waitpopup = document.getElementById('js-wait-popup');
+        const popupMassage = document.getElementById('js-wait-text');
+
+        const waittext = '<p class="wait-text" id="js-wait-text">みんなが答え終わるまで待ってね...</p>'
+                 + '<div class="sk-chase">'
+                 + '<div class="sk-chase-dot"></div>'
+                 + '<div class="sk-chase-dot"></div>'
+                 + '<div class="sk-chase-dot"></div>'
+                 + '<div class="sk-chase-dot"></div>'
+                 + '<div class="sk-chase-dot"></div>'
+                 + '<div class="sk-chase-dot"></div>'
+                 + '</div>';
+
+        let resulttext = '<div class="ul"><div class="name"><ul class="ranking"><li>たかはしはじめ 5秒</li><li>なかむらじろう 6秒</li><li>たなかさんこ 7秒</li></ul></div><div class="pie" id="pie"><span>60%</span></div></div>';
+
+        // const socket = io("http://example.com/");
+        
+        // let endTheAnswer = false;
+        // socket.on("endTheAnser", (msg) => {
+        // })
+
+        function showMassages(text) {
+            popupMassage.innerHTML = text;
+        }
+
+        // function changepie(){
+        //     document.getElementById('pie').style.backgroundImage = 'conic-gradient(#d5525f 0% 60%, #d9d9d9 60% 100%)';
+        // }
 
         document.getElementById(`cor`).onclick = function() {
+            console.log('cor-Button pushed')
             correct.currentTime = 0;  
             correct.play(); 
+            waitpopup.classList.toggle('is-show');
+            showMassages(waittext);
+            setTimeout(() => {
+                showMassages(resulttext);
+                console.log(document.getElementById('pie'));
+                document.getElementById('pie').style.backgroundImage = 'conic-gradient(#d5525f 0% 60%, #d9d9d9 60% 100%)';
+            },5000);
         } 
         
         for(let i=1;i < 4;i++){
             document.getElementById(`incor${i}`).onclick = function() {
+                console.log('incor-Button pushed')
                 incorrect.currentTime = 0;  
                 incorrect.play(); 
+                waitpopup.classList.toggle('is-show');
+                showMassages(waittext);
+                setTimeout(() => {
+                    showMassages(resulttext);
+                    console.log(document.getElementById('pie'));
+                    document.getElementById('pie').style.backgroundImage = 'conic-gradient(#d5525f 0% 60%, #d9d9d9 60% 100%)';
+                },3000);
             } 
         }
     </script>

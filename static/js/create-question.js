@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const create_btn = document.querySelector('#create-btn')
   const inputsElArray = document.querySelectorAll('.inputs')
   const list_ul = document.querySelector('.qustion-list')
+  const alert = document.querySelector('.alert')
   let list_num = 1;
 
   create_btn.addEventListener('click', () => {
@@ -13,7 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     if(checkList.length > 0 ){
-      console.log('未入力項目があります')
+      alert.classList.add('show')
+      setTimeout(() => {
+        alert.classList.remove('show')
+      },3000)
     }else {
       const question_text = document.querySelector('#question-text').value.toString()
       const sliced_text = question_text.length > 15 ? question_text.slice(0,10) + '...' : question_text
@@ -29,6 +33,4 @@ document.addEventListener('DOMContentLoaded', () => {
       `
     }
   })
-
-  const listItemHtml = ``;
 })

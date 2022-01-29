@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
   <!-- 独自 -->
   <link rel="stylesheet" href="/static//css/create-question.css">
+  <script src="/static/js/create-question.js"></script>
   <title>ふくしゅうくん</title>
 </head>
 <body>
@@ -20,26 +21,26 @@
         <form action="" class="create-form">
           <div class="form-item">
             <label for="question">問題文</label>
-            <textarea name="question" id="question"></textarea>
+            <textarea name="question" id="question-text" class="inputs"></textarea>
           </div>
           <div class="form-item">
             <label for="correct-ans">正答</label>
-            <input type="text" name="answer" id="correct-ans">
+            <input type="text" name="answer" id="correct-ans" class="inputs">
           </div>
           <div class="form-item">
             <label for="wrong-ans1">誤答例1</label>
-            <input type="text" name="answer" id="wrong-ans1">
+            <input type="text" name="answer" id="wrong-ans1" class="inputs">
           </div>
           <div class="form-item">
             <label for="wrong-ans2">誤答例2</label>
-            <input type="text" name="answer" id="wrong-ans2">
+            <input type="text" name="answer" id="wrong-ans2" class="inputs">
           </div>
           <div class="form-item">
             <label for="wrong-ans3">誤答例3</label>
-            <input type="text" name="answer" id="wrong-ans3">
+            <input type="text" name="answer" id="wrong-ans3" class="inputs">
           </div>
           <div class="btn-wrapper">
-            <button class="btn dark" id="create-btn">問題を作成</button>
+            <button class="btn dark" id="create-btn" type="button">問題を作成</button>
           </div>
         </form>
       </div>

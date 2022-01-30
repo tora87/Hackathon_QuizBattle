@@ -3,7 +3,7 @@ let popupMassage;
 let waitpopup;
 window.addEventListener('DOMContentLoaded', (event) => {
    popupMassage = document.getElementById('js-wait-text');
-   waitpopup = document.getElementById('js-wait-popup');   
+   waitpopup = document.getElementById('js-wait-popup');
    var socket = io(); // C02. ソケットへの接続
    var isEnter = false;
    var name = '';
@@ -36,6 +36,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
       document.getElementById("ch1").style.display = 'block';
       document.getElementById("ch2").style.display = 'block';
       document.getElementById("ch3").style.display = 'block';
+      document.getElementById("ch0").disabled = false;
+      document.getElementById("ch1").disabled = false;
+      document.getElementById("ch2").disabled = false;
+      document.getElementById("ch3").disabled = false;
 
 
       let count = question.time;
@@ -45,12 +49,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
             questionTimer.innerText = `${count}秒`;
             count--;
 
-            if(userans != ""){
+            if (userans != "") {
                document.getElementById("steymsg").innerText = `${count}秒`;
             }
          } else {
             questionTimer.innerText = `${count}秒`;
-            if(userans != ""){
+            if (userans != "") {
                document.getElementById("steymsg").innerText = `待機中`;
             }
             clearInterval(timerId);
@@ -64,11 +68,32 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
    socket.on("server_to_send_ans",
       function (ans) {
+         document.getElementById("ch0").disabled = true;
+         document.getElementById("ch1").disabled = true;
+         document.getElementById("ch2").disabled = true;
+         document.getElementById("ch3").disabled = true;
          waitpopup.classList.toggle('is-show');
+
+         let count = 0;
          if (userans == ans) {
-            console.log("正解")
+            const seikaiTimer = setInterval(() => {
+               if (count >= 3) {
+                  document.getElementById("seikai-modal").style.display = "none"
+                  clearInterval(seikaiTimer);
+               } else {
+                  document.getElementById("seikai-modal").style.display = "";
+               }
+            }, 1000);
          } else {
-            console.log("不正解")
+            const huseikaiTimer = setInterval(() => {
+               if (count >= 3) {
+                  document.getElementById("huseikai-modal").style.display = "none"
+                  clearInterval(huseikaiTimer);
+               } else {
+                  document.getElementById("huseikai-modal").style.display = "";
+               }
+            }, 1000);
+
          }
       });
 
@@ -204,5 +229,3 @@ function showresult() {
 function showMassages(text) {
    popupMassage.innerHTML = text;
 }
-
-

@@ -265,3 +265,81 @@
 .user-score {
     font-size: 35px;
 }
+
+
+#seikai-modal{
+	width:50%;
+	margin:1.5em auto 0;
+	padding:10px 20px;
+	z-index:2;
+}
+
+#seikai-modal{
+  display: none;
+  position: absolute;
+	width:50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+	z-index:100;
+}
+
+
+#huseikai-modal{
+  display: none;
+  position: absolute;
+	width:50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+	z-index:100;
+}
+
+
+.circle{
+
+  margin: 0 auto;
+  width: 300px;
+  height: 300px;
+  text-align:center;
+  line-height: 80px;
+  border-radius: 50%;
+  border: solid 15px pink;
+}
+.batsu{
+  margin: 0 auto;
+  display: block;
+  width: 350px;/*枠の大きさ*/
+  height: 350px;/*枠の大きさ*/
+  background: transparent;
+  position: relative;
+}
+
+.batsu::before, .batsu::after{
+  content: "";
+  display: block;
+  width: 100%;/*バツ線の長さ*/
+  height: 15px;/*バツ線の太さ*/
+  background: skyblue;
+  transform: rotate(45deg);
+  transform-origin:0% 50%;
+  position: absolute;
+  top: calc(14% - 5px);
+  left: 14%;
+}
+
+.batsu::after{
+  transform: rotate(-45deg);
+  transform-origin:100% 50%;
+  left: auto;
+  right: 14%;
+}
+
+
+
+.ans-text{
+  margin-top: 25px;
+  margin: 0 auto;
+  font-size: 50px;
+  text-align: center;
+}

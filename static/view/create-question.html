@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+  <script src="/socket.io/socket.io.js"></script>
   <!-- 独自 -->
   <link rel="stylesheet" href="/css/create-question.css">
   <script src="/js/create-question.js"></script>
@@ -26,19 +27,23 @@
           </div>
           <div class="form-item">
             <label for="correct-ans">正答</label>
-            <input type="text" name="answer" id="correct-ans" class="inputs">
+            <input type="text" name="answer" id="correct-ans" class="inputs ans">
           </div>
           <div class="form-item">
             <label for="wrong-ans1">誤答例1</label>
-            <input type="text" name="answer" id="wrong-ans1" class="inputs">
+            <input type="text" name="answer" id="wrong-ans1" class="inputs ans">
           </div>
           <div class="form-item">
             <label for="wrong-ans2">誤答例2</label>
-            <input type="text" name="answer" id="wrong-ans2" class="inputs">
+            <input type="text" name="answer" id="wrong-ans2" class="inputs ans">
           </div>
           <div class="form-item">
             <label for="wrong-ans3">誤答例3</label>
-            <input type="text" name="answer" id="wrong-ans3" class="inputs">
+            <input type="text" name="answer" id="wrong-ans3" class="inputs ans">
+          </div>
+          <div class="form-item">
+            <label for="time">制限時間(秒)</label>
+            <input type="number" name="time" id="time" class="inputs" min="0" value="10">
           </div>
           <div class="btn-wrapper">
             <button class="btn dark" id="create-btn" type="button">問題を作成</button>
@@ -47,29 +52,7 @@
       </div>
       <div class="q-wrapper ask">
         <div class="title">出題リスト</div>
-        <ul class="qustion-list">
-          <li class="list-item-wrapper">
-            <div class="left">
-            <span class="list-number">1</span>
-            <span class="question-text">1+1=?</span>
-            </div>
-            <button class="btn">出題</button>
-          </li>
-          <li class="list-item-wrapper">
-            <div class="left">
-            <span class="list-number">2</span>
-            <span class="question-text">1+1=?</span>
-            </div>
-            <button class="btn">出題</button>
-          </li>
-          <li class="list-item-wrapper">
-            <div class="left">
-            <span class="list-number">3</span>
-            <span class="question-text">1+1=?</span>
-            </div>
-            <button class="btn">出題</button>
-          </li>
-        </ul>
+        <ul class="qustion-list"></ul>
       </div>
     </div>
   </div>

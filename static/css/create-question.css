@@ -43,7 +43,8 @@
   resize: none;
 }
 
-.create-form input[type=text] {
+.create-form input[type=text],
+.create-form input[type=number] {
   width: 100%;
   outline: none;
   padding: 1rem ;

@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const alert = document.querySelector('.alert')
   const questionEl = document.querySelector('#question-text')
   const timeEl = document.querySelector('#time')
+  const hidden = document.getElementById('hidden')
+  const link = document.querySelector('.invite-link')
   let ask_btns = document.querySelectorAll('.ask-btn')
   let list_num = 1
   let question_list = []
@@ -24,9 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     if(checkList.length > 0 ){
-      alert.classList.add('show')
+      alert.innerText = '未入力項目があります'
+      alert.classList.add('show','error')
       setTimeout(() => {
-        alert.classList.remove('show')
+        alert.classList.remove('show','error')
       },3000)
       return
     }
@@ -35,6 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const answers = [...ansElArray].map(el => el.value)
     const question = questionEl.value
     const time = timeEl.value
+
+    alert.innerText = '問題を作成しました'
+    alert.classList.add('show','success')
+    setTimeout(() => {
+      alert.classList.remove('show','success')
+    },3000)
 
     //問題オブジェクトの作成
     question_obj['id'] = Number(list_num)
@@ -71,6 +80,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const id = e.target.id
       const selectedQuestion = question_list[id-1]
 
+      //アラートの表示
+      alert.innerText = '問題を出しました'
+      alert.classList.add('show','info')
+      setTimeout(() => {
+        alert.classList.remove('show','info')
+      },3000)
+
       socket.emit('set_question',selectedQuestion)
 
       countNum = selectedQuestion['time']
@@ -78,6 +94,22 @@ document.addEventListener('DOMContentLoaded', () => {
       timeStart(selectedQuestion['answer'][0])
     }
   })
+
+  link.addEventListener('click', () => {
+    socket.emit('create_url','undefined')
+    socket.on('send_url',url => {
+      copyTextToClipboard(url)
+    })
+
+    //アラートの表示
+    alert.innerText = 'リンクをコピーしました'
+    alert.classList.add('show','copy')
+    setTimeout(() => {
+      alert.classList.remove('show','copy')
+    },3000)
+  })
+
+
 
   const timeStart = (correctAns) => {
     const timer = setInterval(() => {
@@ -90,5 +122,15 @@ document.addEventListener('DOMContentLoaded', () => {
       --countNum
       
     },1000)
+  }
+
+  const copyTextToClipboard = text => {
+    navigator.clipboard.writeText(text)
+    .then(() => {
+      console.log('ok')
+    })
+    .catch(() => {
+      console.log('no')
+    })
   }
 })

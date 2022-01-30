@@ -18,6 +18,7 @@ var MongoStore = require('connect-mongo')
 
 const mongoURL = 'mongodb://session_user:password@localhost:27017/session'
 
+//保持しておくやつ(後からDBに格納したものを取れるようにする)
 const userInfo = {
    adminid: null,
    userid: null,
@@ -32,7 +33,6 @@ var options = {
    autoRemove: 'native'
 };
 
-//use-session
 app.use(session({
    secret: 'session-id',
    resave: true,
@@ -47,7 +47,7 @@ app.use(session({
 
 app.set("trust proxy", 1);
 
-// 8080番ポートで待ちうける
+// 8080Port
 http.listen(8080, () => {
 
    console.log('Running at Port 8080...');
@@ -146,9 +146,6 @@ app.get('/admin', function (request, response) {
 });
 
 
-
-
-// S04. connectionイベントを受信する
 io.sockets.on('connection', function (socket) {
 
    var room = '';
@@ -166,9 +163,7 @@ io.sockets.on('connection', function (socket) {
       io.to(userInfo.Roomid).emit('server_to_room', {
          value: personalMessage
       });
-      
-     
-
+   
       //TODO クライアントの処理
       //各クライアントへの問題の設定
       socket.on('set_question',function(question){
@@ -194,25 +189,13 @@ io.sockets.on('connection', function (socket) {
          io.to(userInfo.Roomid).emit('server_to_send_correct', correct)
       })
 
-   // S08. client_to_server_personalイベント・データを受信し、送信元のみに送信する
-   socket.on('client_to_room_personal', function (data) {
-      var id = socket.id;
-      name = data.value;
-      var personalMessage = "あなたは、" + name + "さんとして入室しました。"
-      io.to(id).emit('server_to_room', {
-         value: personalMessage
-      });
-   });
 
-   // S09. dicconnectイベントを受信し、退出メッセージを送信する
+   // 退出処理
    socket.on('disconnect', function () {
       //退出処理
 
    });
 });
-
-
-
 
 const S = "0123456789"
 

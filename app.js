@@ -137,8 +137,8 @@ app.get('/admin', function (request, response) {
    request.session.roomid = getRandomstr(24)
    request.session.userid = getRandomstr(64)
 
-   userInfo.adminid = request.session.roomid
-   userInfo.Roomid = request.session.userid
+   userInfo.adminid = request.session.userid
+   userInfo.Roomid = request.session.roomid
 
    mongo.insertRoom(request.session.roomid, request.session.userid)
 
@@ -177,6 +177,11 @@ io.sockets.on('connection', function (socket) {
          io.to(userInfo.adminid).emit('send_user_answer',{"userid":userInfo.userid,"answer_data":data})
       });
 
+      socket.on('create_url', function (data) {
+         //TODO: 教師側にデータの送信をする
+         io.to(userInfo.adminid).emit('send_url',`http://localhost:8080/invite?roomid${userInfo.Roomid}`)
+      });
+
       // //userからanswerが送られてきた時の処理
       // socket.on('get_answer',function(question){
       //    io.to(userInfo.Roomid).emit('send_question',question)
@@ -186,7 +191,7 @@ io.sockets.on('connection', function (socket) {
       socket.on('review_question',function(correct){
          //答えをユーザー側に送る
 
-         io.to(userInfo.Roomid).emit('server_to_send_correct', correct)
+         io.to(userInfo.Roomid).emit('server_to_send_ans', correct)
       })
 
 

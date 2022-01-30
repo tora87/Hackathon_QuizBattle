@@ -35,6 +35,11 @@
 .answers .btn {
     width: calc(100% / 2 - 100px);
     padding: 3rem;
+    display: none;
+}
+
+.btn-example-text {
+    display: none;
 }
 
 .question-number {
@@ -46,11 +51,24 @@
     line-height: 50px;
 }
 
+.question-timer {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    /* margin-bottom: 10px; */
+}
+
+.second {
+    display: inline-block;
+    width: 70px;
+    text-align: right;
+}
+
+/* 回答欄 */
 .answer-button {
     font-size: 30px;
 }
 
-/* 回答欄 */
 .btn-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -116,6 +134,8 @@
       font-size: 45px;
       text-align: center;
   }
+
+
 
   @keyframes fadeOut {
     from {

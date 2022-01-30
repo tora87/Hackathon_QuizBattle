@@ -167,6 +167,7 @@ io.sockets.on('connection', function (socket) {
       //TODO クライアントの処理
       //各クライアントへの問題の設定
       socket.on('set_question',function(question){
+         console.log(question)
          io.to(userInfo.Roomid).emit('server_to_send_question',question)
       });
 
@@ -174,6 +175,7 @@ io.sockets.on('connection', function (socket) {
        //ユーザーから答えが送られてきた時
        socket.on('user_answer', function (data) {
          //TODO: 教師側にデータの送信をする
+         console.log(data)
          io.to(userInfo.adminid).emit('send_user_answer',{"userid":userInfo.userid,"answer_data":data})
       });
 

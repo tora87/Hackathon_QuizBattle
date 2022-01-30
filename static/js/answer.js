@@ -17,8 +17,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
    });
 
    function appendMsg(text) {
-      document.getElementById("log")
-         .append("<div>" + text + "</div>");
+      document.getElementById("log").innerHTML = `<div>${text}</div>`
       socket.emit("client_to_server", {
          value: "aaa"
       });

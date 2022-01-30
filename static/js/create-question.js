@@ -24,9 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     if(checkList.length > 0 ){
-      alert.classList.add('show')
+      alert.innerText = '未入力項目があります'
+      alert.classList.add('show','error')
       setTimeout(() => {
-        alert.classList.remove('show')
+        alert.classList.remove('show','error')
       },3000)
       return
     }
@@ -35,6 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const answers = [...ansElArray].map(el => el.value)
     const question = questionEl.value
     const time = timeEl.value
+
+    alert.innerText = '問題を作成しました'
+    alert.classList.add('show','success')
+    setTimeout(() => {
+      alert.classList.remove('show','success')
+    },3000)
 
     //問題オブジェクトの作成
     question_obj['id'] = Number(list_num)
@@ -70,6 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if(e.target && e.target.classList.contains('ask-btn')){
       const id = e.target.id
       const selectedQuestion = question_list[id-1]
+
+      //アラートの表示
+      alert.innerText = '問題を出しました'
+      alert.classList.add('show','info')
+      setTimeout(() => {
+        alert.classList.remove('show','info')
+      },3000)
 
       socket.emit('set_question',selectedQuestion)
 

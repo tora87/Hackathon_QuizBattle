@@ -155,35 +155,44 @@ io.sockets.on('connection', function (socket) {
    var name = '';
    console.log("connected");
    socket.join(userInfo.Roomid);
+
+   if(userInfo.adminid == userInfo.userid){
+      socket.join(userInfo.adminid)
+   }
+
+   
    console.log("room:"+userInfo.Roomid)
    var personalMessage = "あなたは、" + userInfo.username + "さんとして入室しました。"
       io.to(userInfo.Roomid).emit('server_to_room', {
          value: personalMessage
       });
+      
+     
 
-      socket.on('user_answer', function (data) {
-         // S06. server_to_clientイベント・データを送信する
-         console.log(data)
+      //TODO クライアントの処理
+      //各クライアントへの問題の設定
+      socket.on('set_question',function(question){
+         io.to(userInfo.Roomid).emit('server_to_send_question',question)
       });
 
 
-
-
-
-   // S05. client_to_serverイベント・データを受信する
-   socket.on('client_to_room', function (data) {
-      // S06. server_to_clientイベント・データを送信する
-      io.to(room).emit('server_to_room', {
-         value: data.value
+       //ユーザーから答えが送られてきた時
+       socket.on('user_answer', function (data) {
+         //TODO: 教師側にデータの送信をする
+         io.to(userInfo.adminid).emit('send_user_answer',{"userid":userInfo.userid,"answer_data":data})
       });
-   });
 
-   // S07. client_to_server_broadcastイベント・データを受信し、送信元以外に送信する
-   socket.on('client_to_room_broadcast', function (data) {
-      socket.broadcast.to(room).emit('server_to_room', {
-         value: data.value
-      });
-   });
+      // //userからanswerが送られてきた時の処理
+      // socket.on('get_answer',function(question){
+      //    io.to(userInfo.Roomid).emit('send_question',question)
+      // });
+
+      //答え合わせ時の処理
+      socket.on('review_question',function(correct){
+         //答えをユーザー側に送る
+
+         io.to(userInfo.Roomid).emit('server_to_send_correct', correct)
+      })
 
    // S08. client_to_server_personalイベント・データを受信し、送信元のみに送信する
    socket.on('client_to_room_personal', function (data) {
@@ -197,14 +206,8 @@ io.sockets.on('connection', function (socket) {
 
    // S09. dicconnectイベントを受信し、退出メッセージを送信する
    socket.on('disconnect', function () {
-      if (name == '') {
-         console.log("退出しました。");
-      } else {
-         var endMessage = name + "さんが退出しました。"
-         io.to(room).emit('server_to_client', {
-            value: endMessage
-         });
-      }
+      //退出処理
+
    });
 });
 

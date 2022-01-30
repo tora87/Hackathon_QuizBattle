@@ -127,10 +127,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyTextToClipboard = text => {
     navigator.clipboard.writeText(text)
     .then(() => {
-      console.log('ok')
+      alert('正解')
     })
     .catch(() => {
-      console.log('no')
+      alert('不正解')
     })
   }
 })

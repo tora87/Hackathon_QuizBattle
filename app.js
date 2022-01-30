@@ -33,7 +33,7 @@ var options = {
    autoRemove: 'native'
 };
 
-app.use(session({
+let sessionMiddleware = session({
    secret: 'session-id',
    resave: true,
    rolling: true,
@@ -43,7 +43,13 @@ app.use(session({
       httpOnly: false,
       maxAge: 60000 * 300
    }
-}));
+})
+
+io.use(function(socket, next){
+   sessionMiddleware(socket.request, socket.request.res, next);
+ });
+
+app.use(sessionMiddleware);
 
 app.set("trust proxy", 1);
 
@@ -70,25 +76,27 @@ app.get('/', function (request, response) {
 
 app.post('/answer', function (request, response) {
    console.log(request.body)
+
    if (!request.session.userid) {
       
       request.session.userid = getRandomstr(64);
    }
-
+   
    if(request.body.namei){
       mongo.selectRoom(userInfo.Roomid, request.session.userid, request.body.name).then(room => {
          if (!room) {
             response.sendFile(__dirname + '/static/view/index.html');
          }
+         console.log("name" +request.body.namei)
          userInfo.username = request.body.namei
          request.session.name = request.body.namei;
          userInfo.adminid = room.documents[0].userID
          userInfo.userid = request.session.userid;
-         userInfo.Roomid = request.body.roomID
          console.log(userInfo.adminid)
          response.sendFile(__dirname + '/static/view/answer.html');
       })
    }
+
 
    mongo.selectRoom(request.body.roomID, request.session.userid, request.body.name).then(room => {
       if (!room) {
@@ -126,7 +134,7 @@ app.get('/invite', (request, response) => {
         if(f){
          userInfo.Roomid = request.query.roomid
          
-            response.sendFile(__dirname + '/static/view/invite.html');
+         response.sendFile(__dirname + '/static/view/invite.html');
         }else{
          response.sendFile(__dirname + '/static/view/index.html');
         }
@@ -153,15 +161,11 @@ io.sockets.on('connection', function (socket) {
    var name = '';
    console.log("connected");
    socket.join(userInfo.Roomid);
-
-   if(userInfo.adminid == userInfo.userid){
-      socket.join(userInfo.adminid)
-   }
-
+   console.log("aaaaaa" + socket.request.session.roomid)
    
    console.log("room:"+userInfo.Roomid)
-   var personalMessage = "あなたは、" + userInfo.username + "さんとして入室しました。"
-      io.to(userInfo.Roomid).emit('server_to_room', {
+   var personalMessage = "あなたは、" + socket.request.session.name + "さんとして入室しました。"
+      io.to(socket.id).emit('server_to_room', {
          value: personalMessage
       });
    
@@ -172,7 +176,7 @@ io.sockets.on('connection', function (socket) {
          //TODO エラー処理する
          question.time = question.time;
          question.answer = arrayShuffle(question.answer)
-         io.to(userInfo.Roomid).emit('server_to_send_question',question)
+         io.to(socket.request.session.roomid).emit('server_to_send_question',question)
       });
 
 
@@ -197,7 +201,7 @@ io.sockets.on('connection', function (socket) {
       socket.on('review_question',function(correct){
          //答えをユーザー側に送る
          console.log("this is coorect"+ correct)
-         io.to(userInfo.Roomid).emit('server_to_send_ans', correct)
+         io.to(socket.request.session.roomid).emit('server_to_send_ans', correct)
       })
 
 

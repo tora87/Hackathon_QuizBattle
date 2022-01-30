@@ -80,8 +80,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
                   document.getElementById("seikai-modal").style.display = "none"
                   clearInterval(seikaiTimer);
                } else {
-                  document.getElementById("seikai-modal").style.display = "";
+                  document.getElementById("seikai-modal").style.display = "block";
                }
+               count++;
             }, 1000);
          } else {
             const huseikaiTimer = setInterval(() => {
@@ -89,8 +90,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
                   document.getElementById("huseikai-modal").style.display = "none"
                   clearInterval(huseikaiTimer);
                } else {
-                  document.getElementById("huseikai-modal").style.display = "";
+                  document.getElementById("huseikai-modal").style.display = "block";
                }
+               count++;
             }, 1000);
 
          }

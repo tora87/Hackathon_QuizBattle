@@ -18,6 +18,7 @@
 <body>
   <div class="create-question-container">
     <div class="alert">未入力項目があります</div>
+    <input type="hidden" id="hidden">
     <div class="contents-wrapper">
       <div class="q-wrapper create">
         <form action="" class="create-form">
@@ -45,6 +46,7 @@
             <label for="time">制限時間(秒)</label>
             <input type="number" name="time" id="time" class="inputs" min="0" value="10">
           </div>
+          <div class="invite-link">招待リンクをコピー<span class="material-icons-outlined">content_copy</span></div>
           <div class="btn-wrapper">
             <button class="btn dark" id="create-btn" type="button">問題を作成</button>
           </div>

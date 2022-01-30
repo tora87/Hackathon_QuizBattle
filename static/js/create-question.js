@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const alert = document.querySelector('.alert')
   const questionEl = document.querySelector('#question-text')
   const timeEl = document.querySelector('#time')
+  const hidden = document.getElementById('hidden')
+  const link = document.querySelector('.invite-link')
   let ask_btns = document.querySelectorAll('.ask-btn')
   let list_num = 1
   let question_list = []
@@ -93,6 +95,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
+  link.addEventListener('click', () => {
+    socket.emit('create_url','undefined')
+    socket.on('send_url',url => {
+      copyTextToClipboard(url)
+    })
+
+    //アラートの表示
+    alert.innerText = 'リンクをコピーしました'
+    alert.classList.add('show','copy')
+    setTimeout(() => {
+      alert.classList.remove('show','copy')
+    },3000)
+  })
+
+
+
   const timeStart = (correctAns) => {
     const timer = setInterval(() => {
       if(countNum <= 0){
@@ -104,5 +122,15 @@ document.addEventListener('DOMContentLoaded', () => {
       --countNum
       
     },1000)
+  }
+
+  const copyTextToClipboard = text => {
+    navigator.clipboard.writeText(text)
+    .then(() => {
+      console.log('ok')
+    })
+    .catch(() => {
+      console.log('no')
+    })
   }
 })

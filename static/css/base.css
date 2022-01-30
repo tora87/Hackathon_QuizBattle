@@ -107,6 +107,12 @@ img {
   border: 2px solid #bee5eb;
 }
 
+.alert.copy {
+  background: #d6d8d9;
+  color: #1b1e21;
+  border: 2px solid #c6c8ca;
+}
+
 .alert.show {
   opacity: 1;
 }

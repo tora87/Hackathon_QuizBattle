@@ -184,7 +184,8 @@ io.sockets.on('connection', function (socket) {
 
       socket.on('create_url', function (data) {
          //TODO: 教師側にデータの送信をする
-         io.to(userInfo.adminid).emit('send_url',`http://localhost:8080/invite?roomid${userInfo.Roomid}`)
+         // io.to(userInfo.adminid).emit('send_url',`http://localhost:8080/invite?roomid${userInfo.Roomid}`)
+         io.to(socket.id).emit('send_url',`http://localhost:8080/invite?roomid=${userInfo.Roomid}`)
       });
 
       // //userからanswerが送られてきた時の処理

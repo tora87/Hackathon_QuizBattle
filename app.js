@@ -80,7 +80,7 @@ app.post('/answer', function (request, response) {
          if (!room) {
             response.sendFile(__dirname + '/static/view/index.html');
          }
-         userInfo.username = request.body.name
+         userInfo.username = request.body.namei
          request.session.name = request.body.namei;
          userInfo.adminid = room.documents[0].userID
          userInfo.userid = request.session.userid;
@@ -125,6 +125,7 @@ app.get('/invite', (request, response) => {
         console.log(f)
         if(f){
          userInfo.Roomid = request.query.roomid
+         
             response.sendFile(__dirname + '/static/view/invite.html');
         }else{
          response.sendFile(__dirname + '/static/view/index.html');
@@ -168,6 +169,9 @@ io.sockets.on('connection', function (socket) {
       //各クライアントへの問題の設定
       socket.on('set_question',function(question){
          console.log(question)
+         //TODO エラー処理する
+         question.time = question.time;
+         question.answer = arrayShuffle(question.answer)
          io.to(userInfo.Roomid).emit('server_to_send_question',question)
       });
 
@@ -176,7 +180,6 @@ io.sockets.on('connection', function (socket) {
        socket.on('user_answer', function (data) {
          //TODO: 教師側にデータの送信をする
          console.log(data)
-         io.to(userInfo.adminid).emit('send_user_answer',{"userid":userInfo.userid,"answer_data":data})
       });
 
       socket.on('create_url', function (data) {
@@ -192,7 +195,7 @@ io.sockets.on('connection', function (socket) {
       //答え合わせ時の処理
       socket.on('review_question',function(correct){
          //答えをユーザー側に送る
-
+         console.log("this is coorect"+ correct)
          io.to(userInfo.Roomid).emit('server_to_send_ans', correct)
       })
 
@@ -212,9 +215,17 @@ function getRandomstr(num) {
    }
 }
 
+function arrayShuffle(array) {
+   for(var i = (array.length - 1); 0 < i; i--){
+ 
+     var r = Math.floor(Math.random() * (i + 1));
 
-
-
+     var tmp = array[i];
+     array[i] = array[r];
+     array[r] = tmp;
+   }
+   return array;
+ }
 
 // その他のリクエストに対する404エラー
 app.use((request, response) => {

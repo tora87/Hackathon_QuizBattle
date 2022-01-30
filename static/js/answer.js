@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
    }
 
    socket.on("server_to_send_question", function (question) {
-      userans = undefined
+      userans = ""
       document.getElementById("question-text").innerText = question.question
       document.getElementById("question-number").innerText = question.id
       document.getElementById("ch0").innerText = question.answer[0];
@@ -38,40 +38,50 @@ window.addEventListener('DOMContentLoaded', (event) => {
       document.getElementById("ch3").style.display = 'block';
 
 
-      let count = question.time - 5;
+      let count = question.time;
 
       const timerId = setInterval(() => {
          if (count > 0) {
             questionTimer.innerText = `${count}秒`;
             count--;
+
+            if(userans != ""){
+               document.getElementById("steymsg").innerText = `${count}秒`;
+            }
          } else {
             questionTimer.innerText = `${count}秒`;
+            if(userans != ""){
+               document.getElementById("steymsg").innerText = `待機中`;
+            }
             clearInterval(timerId);
             showMassages(waitText);
-            showresult();
+            //showresult();
          }
       }, 1000);
 
    });
 
 
-   socket.on("server_to_send_ans"),
+   socket.on("server_to_send_ans",
       function (ans) {
+         waitpopup.classList.toggle('is-show');
          if (userans == ans) {
             console.log("正解")
          } else {
             console.log("不正解")
          }
-      }
+      });
 
-   document.getElementById("ch0").addEventListener("click", () => sendans(1));
-   document.getElementById("ch1").addEventListener("click", () => sendans(2));
-   document.getElementById("ch2").addEventListener("click", () => sendans(3));
-   document.getElementById("ch3").addEventListener("click", () => sendans(4));
+   document.getElementById("ch0").addEventListener("click", () => sendans(document.getElementById("ch0").innerText));
+   document.getElementById("ch1").addEventListener("click", () => sendans(document.getElementById("ch1").innerText));
+   document.getElementById("ch2").addEventListener("click", () => sendans(document.getElementById("ch2").innerText));
+   document.getElementById("ch3").addEventListener("click", () => sendans(document.getElementById("ch3").innerText));
 
    function sendans(num) {
       console.log(num)
       userans = num;
+      showMassages(waitText)
+      waitpopup.classList.toggle('is-show');
       socket.emit("user_answer", {
          "value": num
       });
@@ -122,6 +132,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                     <div class="sk-chase-dot"></div>
                     <div class="sk-chase-dot"></div>
                 </div>
+                <div id="steymsg"></div>
             </div>
         </div>
         `;
@@ -182,7 +193,7 @@ function showresult() {
 </div>
 `;
       console.log('showresult()');
-      showMassages(resulttext);
+      //showMassages(resulttext);
       waitpopup.classList.toggle('is-show');
       document.getElementById('pie').style.backgroundImage = `conic-gradient(#d5525f 0% 60%, #d9d9d9 60% 100%)`;
       document.getElementById('user-score').innerHTML += `<p>14位 たちばなかずひこ 14秒</p>`;
@@ -193,3 +204,5 @@ function showresult() {
 function showMassages(text) {
    popupMassage.innerHTML = text;
 }
+
+
